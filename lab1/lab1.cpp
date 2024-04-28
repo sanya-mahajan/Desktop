@@ -3,7 +3,6 @@
 #include <cstdlib> // For rand()
 using namespace std;
 
-int rx = 100, ry = 125;
 int xCenter = 320, yCenter = 240; // Center of the screen
 
 void myinit(void)
@@ -21,17 +20,8 @@ void setPixel(GLint x, GLint y)
     glEnd();
 }
 
-void drawEllipsePoints(int x, int y)
-{
-    setPixel(xCenter + x, yCenter + y);
-    setPixel(xCenter - x, yCenter + y);
-    setPixel(xCenter + x, yCenter - y);
-    setPixel(xCenter - x, yCenter - y);
-}
-
 void drawDesktop()
 {
-    // Draw desktop background
     glColor3f(0.4, 0.6, 0.9); // Light blue for desktop
     glBegin(GL_POLYGON);
     glVertex2i(0, 0);
@@ -40,10 +30,7 @@ void drawDesktop()
     glVertex2i(0, 480);
     glEnd();
 
-    // Draw some windows (just outlines for now)
     glColor3f(0.1, 0.1, 0.1); // Dark gray for window outlines
-
-    // Draw a window frame
     glBegin(GL_LINE_LOOP);
     glVertex2i(100, 100);
     glVertex2i(300, 100);
@@ -51,7 +38,6 @@ void drawDesktop()
     glVertex2i(100, 300);
     glEnd();
 
-    // Draw another window frame
     glBegin(GL_LINE_LOOP);
     glVertex2i(400, 150);
     glVertex2i(600, 150);
@@ -59,7 +45,6 @@ void drawDesktop()
     glVertex2i(400, 350);
     glEnd();
 
-    // Draw icons (squares for now)
     glColor3f(0.8, 0.8, 0.8); // Light gray for icons
     for (int i = 0; i < 5; ++i)
     {
@@ -71,7 +56,6 @@ void drawDesktop()
         glEnd();
     }
 
-    // Draw taskbar
     glColor3f(0.2, 0.2, 0.2); // Dark gray for taskbar
     glBegin(GL_POLYGON);
     glVertex2i(0, 0);
@@ -80,7 +64,6 @@ void drawDesktop()
     glVertex2i(0, 30);
     glEnd();
 
-    // Draw Start button
     glColor3f(0.5, 0.5, 0.5); // Light gray for Start button
     glBegin(GL_POLYGON);
     glVertex2i(10, 5);
@@ -89,8 +72,7 @@ void drawDesktop()
     glVertex2i(10, 25);
     glEnd();
 
-    // Draw Start text
-    glColor3f(1.0, 1.0, 1.0); // White for text
+    glColor3f(1.0, 1.0, 1.0); // White for Start text
     glRasterPos2i(25, 15);
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'S');
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 't');
@@ -98,8 +80,7 @@ void drawDesktop()
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'r');
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 't');
 
-    // Draw search icon
-    glColor3f(1.0, 1.0, 1.0); // White for icon
+    glColor3f(1.0, 1.0, 1.0); // White for search icon
     glBegin(GL_TRIANGLES);
     glVertex2i(610, 10);
     glVertex2i(630, 25);
@@ -107,12 +88,39 @@ void drawDesktop()
     glEnd();
 }
 
+void drawWindows98Logo()
+{
+    glColor3f(0.0, 0.0, 1.0); // Blue color for the logo
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter - 50, yCenter - 50);
+    glVertex2i(xCenter + 50, yCenter - 50);
+    glVertex2i(xCenter + 50, yCenter + 50);
+    glVertex2i(xCenter - 50, yCenter + 50);
+    glEnd();
+
+    glColor3f(1.0, 1.0, 0.0); // Yellow color for the flag
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter - 30, yCenter - 40);
+    glVertex2i(xCenter - 10, yCenter - 40);
+    glVertex2i(xCenter - 10, yCenter + 40);
+    glVertex2i(xCenter - 30, yCenter + 40);
+    glEnd();
+
+    glColor3f(1.0, 1.0, 1.0); // White color for the window
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter - 20, yCenter - 30);
+    glVertex2i(xCenter + 10, yCenter - 30);
+    glVertex2i(xCenter + 10, yCenter + 30);
+    glVertex2i(xCenter - 20, yCenter + 30);
+    glEnd();
+}
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // Simulate Windows 98 desktop
     drawDesktop();
+    drawWindows98Logo();
 
     glFlush();
 }
