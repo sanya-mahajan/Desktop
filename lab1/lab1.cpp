@@ -90,29 +90,267 @@ void drawDesktop()
 
 void drawWindows98Logo()
 {
+
     glColor3f(0.0, 0.0, 1.0); // Blue color for the logo
     glBegin(GL_POLYGON);
-    glVertex2i(xCenter - 50, yCenter - 50);
-    glVertex2i(xCenter + 50, yCenter - 50);
-    glVertex2i(xCenter + 50, yCenter + 50);
-    glVertex2i(xCenter - 50, yCenter + 50);
+    glVertex2i(xCenter - 20, yCenter + 47); //top right
+    glVertex2i(xCenter - 40, yCenter - 43  ); //bottom right
+    glVertex2i(xCenter - 55, yCenter - 50  ); //bottom left
+    glVertex2i(xCenter - 35, yCenter + 40  ); //top left
+
     glEnd();
 
-    glColor3f(1.0, 1.0, 0.0); // Yellow color for the flag
     glBegin(GL_POLYGON);
-    glVertex2i(xCenter - 30, yCenter - 40);
-    glVertex2i(xCenter - 10, yCenter - 40);
-    glVertex2i(xCenter - 10, yCenter + 40);
-    glVertex2i(xCenter - 30, yCenter + 40);
+    glVertex2i(xCenter - 10, yCenter + 52  );
+    glVertex2i(xCenter - 30, yCenter - 38  );
+    glVertex2i(xCenter - 40, yCenter - 43  );
+    glVertex2i(xCenter - 20, yCenter + 47  );
     glEnd();
 
-    glColor3f(1.0, 1.0, 1.0); // White color for the window
     glBegin(GL_POLYGON);
-    glVertex2i(xCenter - 20, yCenter - 30);
-    glVertex2i(xCenter + 10, yCenter - 30);
-    glVertex2i(xCenter + 10, yCenter + 30);
-    glVertex2i(xCenter - 20, yCenter + 30);
+    glVertex2i(xCenter, yCenter + 57  );
+    glVertex2i(xCenter - 20, yCenter - 33  );
+    glVertex2i(xCenter - 30, yCenter - 38  );
+    glVertex2i(xCenter - 10, yCenter + 52  );
     glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 10, yCenter + 58  );
+    glVertex2i(xCenter - 10, yCenter - 32  );
+    glVertex2i(xCenter - 20, yCenter - 33  );
+    glVertex2i(xCenter, yCenter + 57  );
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 20, yCenter + 55  );
+    glVertex2i(xCenter, yCenter - 35  );
+    glVertex2i(xCenter - 10, yCenter - 32  );
+    glVertex2i(xCenter + 10, yCenter + 58  );
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 35, yCenter + 45  );
+    glVertex2i(xCenter + 15, yCenter - 45  );
+    glVertex2i(xCenter, yCenter - 35  );
+    glVertex2i(xCenter + 20, yCenter + 55  );
+    glEnd();
+
+
+    int shifty = 100;
+    int shiftx = 20;
+    glColor3f(0.929, 0.329, 0.023); // red color for the logo
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter - 20 +shiftx, yCenter + 47 + shifty); //top right
+    glVertex2i(xCenter - 40 + shiftx, yCenter - 43 + shifty); //bottom right
+    glVertex2i(xCenter - 55 + shiftx, yCenter - 50 + shifty); //bottom left
+    glVertex2i(xCenter - 35 + shiftx, yCenter + 40 + shifty); //top left
+
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter - 10 + shiftx, yCenter + 52 + shifty);
+    glVertex2i(xCenter - 30 + shiftx, yCenter - 38 + shifty);
+    glVertex2i(xCenter - 40 + shiftx, yCenter - 43 + shifty);
+    glVertex2i(xCenter - 20 + shiftx, yCenter + 47 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + shiftx, yCenter + 57 + shifty);
+    glVertex2i(xCenter - 20 + shiftx, yCenter - 33 + shifty);
+    glVertex2i(xCenter - 30 + shiftx, yCenter - 38 + shifty);
+    glVertex2i(xCenter - 10 + shiftx, yCenter + 52 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 10 + shiftx, yCenter + 58 + shifty);
+    glVertex2i(xCenter - 10 + shiftx, yCenter - 32 + shifty);
+    glVertex2i(xCenter - 20 + shiftx, yCenter - 33 + shifty);
+    glVertex2i(xCenter + shiftx, yCenter + 57 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 20 + shiftx, yCenter + 55 + shifty);
+    glVertex2i(xCenter + shiftx, yCenter - 35 + shifty);
+    glVertex2i(xCenter - 10 + shiftx, yCenter - 32 + shifty);
+    glVertex2i(xCenter + 10 + shiftx, yCenter + 58 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 35 + shiftx, yCenter + 45 + shifty);
+    glVertex2i(xCenter + 15 + shiftx, yCenter - 45 + shifty);
+    glVertex2i(xCenter + shiftx, yCenter - 35 + shifty);
+    glVertex2i(xCenter + 20 + shiftx, yCenter + 55 + shifty);
+    glEnd();
+
+    int shiftx2 = 10;
+    glColor3f(0.956, 0.788, 0.121); // yellow color for the logo
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter +50 +shiftx2, yCenter + 35); //top right
+    glVertex2i(xCenter +30 + shiftx2, yCenter - 55); //bottom right
+    glVertex2i(xCenter + 15 + shiftx2, yCenter - 45); //bottom left
+    glVertex2i(xCenter + 35 + shiftx2, yCenter + 45); //top left
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter +60 + shiftx2, yCenter +32);
+    glVertex2i(xCenter +40 + shiftx2, yCenter -58);
+    glVertex2i(xCenter + 30 + shiftx2, yCenter - 55);
+    glVertex2i(xCenter + 50 + shiftx2, yCenter + 35);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter +70 + shiftx2, yCenter + 33);
+    glVertex2i(xCenter +50 + shiftx2, yCenter - 57);
+    glVertex2i(xCenter + 40 + shiftx2, yCenter - 58);
+    glVertex2i(xCenter + 60 + shiftx2, yCenter + 32);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 80 + shiftx2, yCenter + 38);
+    glVertex2i(xCenter +60 + shiftx2, yCenter - 52);
+    glVertex2i(xCenter + 50 + shiftx2, yCenter - 57);
+    glVertex2i(xCenter + 70 + shiftx2, yCenter + 33);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 90 + shiftx2, yCenter + 42);
+    glVertex2i(xCenter+70 + shiftx2, yCenter - 48);
+    glVertex2i(xCenter + 60 + shiftx2, yCenter - 52);
+    glVertex2i(xCenter + 80 + shiftx2, yCenter + 38);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 95 + shiftx2, yCenter + 45);
+    glVertex2i(xCenter + 75 + shiftx2, yCenter - 45);
+    glVertex2i(xCenter + 70 + shiftx2, yCenter - 48);
+    glVertex2i(xCenter + 90 + shiftx2, yCenter + 42);
+    glEnd();
+
+
+
+    glColor3f(0.217, 0.803, 0.0); // greeen color for the logo
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 50 +shiftx + shiftx2, yCenter + 35 + shifty); //top right
+    glVertex2i(xCenter + 30 + shiftx + shiftx2, yCenter - 55 + shifty); //bottom right
+    glVertex2i(xCenter + 15 + shiftx + shiftx2, yCenter - 45 + shifty); //bottom left
+    glVertex2i(xCenter + 35 + shiftx + shiftx2, yCenter + 45 + shifty); //top left
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 60 + shiftx + shiftx2, yCenter + 32 + shifty);
+    glVertex2i(xCenter + 40 + shiftx + shiftx2, yCenter - 58 + shifty);
+    glVertex2i(xCenter + 30 + shiftx + shiftx2, yCenter - 55 + shifty);
+    glVertex2i(xCenter + 50 + shiftx + shiftx2, yCenter + 35 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 70 + shiftx + shiftx2, yCenter + 33 + shifty);
+    glVertex2i(xCenter + 50 + shiftx + shiftx2, yCenter - 57 + shifty);
+    glVertex2i(xCenter + 40 + shiftx + shiftx2, yCenter - 58 + shifty);
+    glVertex2i(xCenter + 60 + shiftx + shiftx2, yCenter + 32 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 80 + shiftx + shiftx2, yCenter + 38 + shifty);
+    glVertex2i(xCenter + 60 + shiftx + shiftx2, yCenter - 52 + shifty);
+    glVertex2i(xCenter + 50 + shiftx + shiftx2, yCenter - 57 + shifty);
+    glVertex2i(xCenter + 70 + shiftx + shiftx2, yCenter + 33 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 90 + shiftx + shiftx2, yCenter + 42 + shifty);
+    glVertex2i(xCenter + 70 + shiftx + shiftx2, yCenter - 48 + shifty);
+    glVertex2i(xCenter + 60 + shiftx + shiftx2, yCenter - 52 + shifty);
+    glVertex2i(xCenter + 80 + shiftx + shiftx2, yCenter + 38 + shifty);
+    glEnd();
+
+    glBegin(GL_POLYGON);
+    glVertex2i(xCenter + 95 + shiftx + shiftx2, yCenter + 45 + shifty);
+    glVertex2i(xCenter + 75 + shiftx + shiftx2, yCenter - 45 + shifty);
+    glVertex2i(xCenter + 70 + shiftx + shiftx2, yCenter - 48 + shifty);
+    glVertex2i(xCenter + 90 + shiftx + shiftx2, yCenter + 42 +shifty);
+    glEnd();
+
+}
+
+void drawIcon(int x, int y)
+{
+    glBegin(GL_POLYGON);
+    glVertex2i(x, y);
+    glVertex2i(x + 20, y);
+    glVertex2i(x + 20, y + 20);
+    glVertex2i(x, y + 20);
+    glEnd();
+}
+
+void drawCircle(float cx, float cy, float r, int num_segments) {
+    glBegin(GL_TRIANGLE_FAN);
+    glColor3f(1.0, 1.0, 1.0); // White fill color
+    glVertex2f(cx, cy); // Center of circle
+    for (int i = 0; i <= num_segments; i++) {
+        float theta = 2.0f * 3.1415926f * float(i) / float(num_segments); // Get the current angle
+        float x = r * cosf(theta); // Calculate the x component
+        float y = r * sinf(theta); // Calculate the y component
+        glVertex2f(x + cx, y + cy); // Output vertex
+    }
+    glEnd();
+
+    // Draw circle boundary
+    glColor3f(0.0, 0.0, 0.0); // Black boundary color
+    glBegin(GL_LINE_LOOP);
+    for (int i = 0; i <= num_segments; i++) {
+        float theta = 2.0f * 3.1415926f * float(i) / float(num_segments); // Get the current angle
+        float x = r * cosf(theta); // Calculate the x component
+        float y = r * sinf(theta); // Calculate the y component
+        glVertex2f(x + cx, y + cy); // Output vertex
+    }
+    glEnd();
+}
+void drawText(float x, float y, const char* text) {
+    glColor3f(1.0, 0.0, 0.0); // Black text color
+    glRasterPos2f(x, y);
+    while (*text) {
+        if (*text == 'n') {
+            glColor3f(1.0, 0.0, 0.0); // Red color for 'n'
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *text);
+            glColor3f(0.0, 0.0, 0.0); // Reset color back to black
+        }
+        else {
+            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, *text);
+        }
+        ++text;
+    }
+}
+
+void drawFolderIcon() {
+    // Draw the folder body (rectangle)
+    glColor3f(1.0, 1.0, 0.0); // yellow
+    glBegin(GL_POLYGON);
+    glVertex2f(0.0, 0.0);
+    glVertex2f(105.0, 0.0);
+    glVertex2f(105.0, 80.0);
+    /*    */glVertex2f(20.0, 80.0);
+    glVertex2f(0.0, 80.0);
+    glEnd();
+
+    // Draw the folder tab (smaller rectangle on top)
+    glColor3f(1.0, 1.0, 0.5); // Light yellow
+    glBegin(GL_POLYGON);
+    glVertex2f(0.0, 70.0);
+    glVertex2f(15.0, 90.0);
+    glVertex2f(50.0, 90.0);
+    glVertex2f(60.0, 80.0);
+    glEnd();
+
+    // Draw the folder label (optional)
+    glColor3f(0.0, 0.0, 0.0); // Black
+    glRasterPos2f(10.0, 40.0); // Adjust position as needed
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'F');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'o');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'l');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'd');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'r');
 }
 
 void display()
@@ -121,6 +359,9 @@ void display()
 
     drawDesktop();
     drawWindows98Logo();
+    drawFolderIcon();
+    drawCircle(200.0, 200.0, 40.0, 100); // Centered at (200, 200) with radius 50
+    drawText(190.0, 200.0, "MSn"); // Adjusted position to fit within the circle
 
     glFlush();
 }
