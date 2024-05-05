@@ -311,38 +311,40 @@ void drawText(float x, float y, const char* text) {
         ++text;
     }
 }
+void drawFolderIcon(float x, float y)
+{
+    // Adjust the dimensions of the folder
+    float folderWidth = 20.0;   // Width of the folder
+    float folderHeight = 30.0;  // Height of the folder
 
-void drawFolderIcon() {
     // Draw the folder body (rectangle)
-    glColor3f(1.0, 1.0, 0.0); // yellow
+    glColor3f(1.0, 1.0, 0.0); // Yellow
     glBegin(GL_POLYGON);
-    glVertex2f(0.0, 0.0);
-    glVertex2f(105.0, 0.0);
-    glVertex2f(105.0, 80.0);
-    /*    */glVertex2f(20.0, 80.0);
-    glVertex2f(0.0, 80.0);
+    glVertex2f(x, y);
+    glVertex2f(x + folderWidth, y);
+    glVertex2f(x + folderWidth, y + folderHeight);
+    glVertex2f(x, y + folderHeight);
     glEnd();
 
     // Draw the folder tab (smaller rectangle on top)
     glColor3f(1.0, 1.0, 0.5); // Light yellow
     glBegin(GL_POLYGON);
-    glVertex2f(0.0, 70.0);
-    glVertex2f(15.0, 90.0);
-    glVertex2f(50.0, 90.0);
-    glVertex2f(60.0, 80.0);
+    glVertex2f(x, y + folderHeight);
+    glVertex2f(x + folderWidth * 0.3, y + folderHeight);
+    glVertex2f(x + folderWidth * 0.4, y + folderHeight + folderWidth * 0.2);
+    glVertex2f(x, y + folderHeight + folderWidth * 0.2);
     glEnd();
 
     // Draw the folder label (optional)
     glColor3f(0.0, 0.0, 0.0); // Black
-    glRasterPos2f(10.0, 40.0); // Adjust position as needed
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'F');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'o');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'l');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'd');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'r');
+    glRasterPos2f(x + 4.0, y + 12.0); // Adjust position for text
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'F');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'o');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'l');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'd');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'e');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'r');
 }
-
 
 
 
@@ -544,8 +546,14 @@ void display()
  
     glPopMatrix();
 
-    glTranslatef(30.0, 200, 0.0); // Position the recycle bin
+    glTranslatef(30.0, 200, 0.0); 
    
+    drawFolderIcon();
+    glPopMatrix();
+    glPopMatrix();
+
+    glTranslatef(40, 200, 0.0); // Position the recycle bin
+
     drawFolderIcon();
     glPopMatrix();
 
@@ -564,18 +572,30 @@ void mouse(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        // Change display function to c_display
-        glutDisplayFunc(c_display);
+        // Check if the click is within the bounding box of the "Start" text
+        // Bounding box coordinates
+        int startX = 10;    // X-coordinate of the "Start" text
+        int startY = 5;     // Y-coordinate of the "Start" text
+        int endX = 90;      // End X-coordinate of the "Start" text
+        int endY = 25;      // End Y-coordinate of the "Start" text
 
-        // Enable depth test (only if not already enabled)
-        if (!depthEnabled)
-            enableDepthTest();
+        // Check if the click coordinates are within the bounding box
+        if (x >= startX && x <= endX && y >= startY && y <= endY)
+        {
+            // Change display function to c_display
+            glutDisplayFunc(c_display);
 
-        // Request redisplay to show updated scene with c_display
-        glutPostRedisplay();
-        cout << "click" << endl;
+            // Enable depth test (only if not already enabled)
+            if (!depthEnabled)
+                enableDepthTest();
+
+            // Request redisplay to show updated scene with c_display
+            glutPostRedisplay();
+            cout << "Clicked on Start button!" << endl;
+        }
     }
 }
+
 
 int main(int argc, char** argv)
 {

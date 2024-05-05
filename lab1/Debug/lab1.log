@@ -1,2 +1,5 @@
 ﻿  lab1.cpp
-  lab1.vcxproj -> C:\Users\sanya\source\repos\lab1\Debug\lab1.exe
+C:\Users\sanya\source\repos\lab1\lab1\lab1.cpp(551,20): error C2660: 'drawFolderIcon': function does not take 0 arguments
+C:\Users\sanya\source\repos\lab1\lab1\lab1.cpp(314,6): message : see declaration of 'drawFolderIcon'
+C:\Users\sanya\source\repos\lab1\lab1\lab1.cpp(557,20): error C2660: 'drawFolderIcon': function does not take 0 arguments
+C:\Users\sanya\source\repos\lab1\lab1\lab1.cpp(314,6): message : see declaration of 'drawFolderIcon'
