@@ -1,2 +1,2 @@
 ﻿  lab1.cpp
-  lab1.vcxproj -> C:\Users\sanya\source\repos\lab1\Debug\lab1.exe
+C:\Users\sanya\source\repos\lab1\lab1\lab1.cpp(83,5): error C3861: 'draw3DCube': identifier not found

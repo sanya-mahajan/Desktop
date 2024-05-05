@@ -80,6 +80,7 @@ void drawDesktop()
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'r');
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 't');
 
+    draw3DCube();
     glColor3f(1.0, 1.0, 1.0); // White for search icon
     glBegin(GL_TRIANGLES);
     glVertex2i(610, 10);
@@ -353,17 +354,126 @@ void drawFolderIcon() {
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'r');
 }
 
+
+
+
+//cube ------
+
+float ver[8][3] =
+{
+    {-1.0,-1.0,1.0},
+    {-1.0,1.0,1.0},
+    {1.0,1.0,1.0},
+    {1.0,-1.0,1.0},
+    {-1.0,-1.0,-1.0},
+    {-1.0,1.0,-1.0},
+    {1.0,1.0,-1.0},
+    {1.0,-1.0,-1.0},
+};
+
+GLfloat color[8][3] =
+{
+    {0.0,0.0,0.0},
+    {1.0,0.0,0.0},
+    {1.0,1.0,0.0},
+    {0.0,1.0,0.0},
+    {0.0,0.0,1.0},
+    {1.0,0.0,1.0},
+    {1.0,1.0,1.0},
+    {0.0,1.0,1.0},
+};
+
+void quad(int a, int b, int c, int d)
+{
+    glBegin(GL_QUADS);
+    glColor3fv(color[a]);
+    glVertex3fv(ver[a]);
+
+    glColor3fv(color[b]);
+    glVertex3fv(ver[b]);
+
+    glColor3fv(color[c]);
+    glVertex3fv(ver[c]);
+
+    glColor3fv(color[d]);
+    glVertex3fv(ver[d]);
+    glEnd();
+}
+
+void colorcube()
+{
+    quad(0, 3, 2, 1);
+    quad(2, 3, 7, 6);
+    quad(0, 4, 7, 3);
+    quad(1, 2, 6, 5);
+    quad(4, 5, 6, 7);
+    quad(0, 1, 5, 4);
+}
+
+double rotate_y = 0;
+double rotate_x = 0;
+void specialKeys(int key, int x, int y)
+{
+    if (key == GLUT_KEY_RIGHT)
+        rotate_y += 5;
+    else if (key == GLUT_KEY_LEFT)
+        rotate_y -= 5;
+    else if (key == GLUT_KEY_UP)
+        rotate_x += 5;
+    else if (key == GLUT_KEY_DOWN)
+        rotate_x -= 5;
+    glutPostRedisplay();
+}
+
+void c_display()
+{
+    glClearColor(0, 0, 0, 1);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    int w = glutGet(GLUT_WINDOW_WIDTH);
+    int h = glutGet(GLUT_WINDOW_HEIGHT);
+    gluPerspective(60, w / h, 0.1, 100);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+    gluLookAt
+    (
+        3, 3, 3,
+        0, 0, 0,
+        0, 0, 1
+    );
+
+    glRotatef(rotate_x, 1.0, 0.0, 0.0);
+    glRotatef(rotate_y, 0.0, 1.0, 0.0);
+    colorcube();
+
+    glutSwapBuffers();
+}
+
+
+
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
+    glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 
     drawDesktop();
     drawWindows98Logo();
     drawFolderIcon();
     drawCircle(200.0, 200.0, 40.0, 100); // Centered at (200, 200) with radius 50
     drawText(190.0, 200.0, "MSn"); // Adjusted position to fit within the circle
-
+   
     glFlush();
+}
+
+void mouse(int button, int state, int x, int y)
+{
+    if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
+    {
+        c_display();
+    }
 }
 
 int main(int argc, char** argv)
@@ -374,6 +484,9 @@ int main(int argc, char** argv)
     glutCreateWindow("Windows 98 Simulation");
     myinit();
     glutDisplayFunc(display);
+    glutSpecialFunc(specialKeys);
+    glEnable(GL_DEPTH_TEST);
+    glutMouseFunc(mouse);
     glutMainLoop();
     return 0;
 }
