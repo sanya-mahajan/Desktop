@@ -80,7 +80,6 @@ void drawDesktop()
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 'r');
     glutBitmapCharacter(GLUT_BITMAP_9_BY_15, 't');
 
-    draw3DCube();
     glColor3f(1.0, 1.0, 1.0); // White for search icon
     glBegin(GL_TRIANGLES);
     glVertex2i(610, 10);
@@ -457,7 +456,6 @@ void c_display()
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT);
-    glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
 
     drawDesktop();
     drawWindows98Logo();
@@ -484,8 +482,8 @@ int main(int argc, char** argv)
     glutCreateWindow("Windows 98 Simulation");
     myinit();
     glutDisplayFunc(display);
-    glutSpecialFunc(specialKeys);
-    glEnable(GL_DEPTH_TEST);
+  /*  glutSpecialFunc(specialKeys);
+    glEnable(GL_DEPTH_TEST);*/
     glutMouseFunc(mouse);
     glutMainLoop();
     return 0;
