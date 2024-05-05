@@ -451,6 +451,82 @@ void c_display()
     glutSwapBuffers();
 }
 
+void drawRecycleBinIcon()
+{
+    // Define the dimensions of the glass tumbler
+    float baseWidth = 30.0;   // Width of the base
+    float topWidth = 40.0;    // Width of the top
+    float height = 60.0;      // Height of the tumbler
+    float lipHeight = 5.0;    // Height of the lip
+
+    // Draw the main body of the glass tumbler (trapezoidal shape)
+    glColor3f(0.5, 0.5, 0.5); // Gray color for glass body
+    glBegin(GL_POLYGON);
+    glVertex2f(-baseWidth / 2, 0.0);
+    glVertex2f(baseWidth / 2, 0.0);
+    glVertex2f(topWidth / 2, height);
+    glVertex2f(-topWidth / 2, height);
+    glEnd();
+
+    // Draw the lip of the glass tumbler
+    glColor3f(0.4, 0.4, 0.4); // Dark gray color for lip
+    glBegin(GL_POLYGON);
+    glVertex2f(-topWidth / 2, height);
+    glVertex2f(topWidth / 2, height);
+    glVertex2f(topWidth / 2, height + lipHeight);
+    glVertex2f(-topWidth / 2, height + lipHeight);
+    glEnd();
+
+    // Draw the rim of the glass tumbler
+    glBegin(GL_LINE_LOOP);
+    glVertex2f(-topWidth / 2, height + lipHeight);
+    glVertex2f(topWidth / 2, height + lipHeight);
+    glEnd();
+
+    // Draw the base of the glass tumbler (ellipse)
+    glColor3f(0.5, 0.5, 0.5); // Gray color for base
+    int numSegments = 50;
+    float radiusX = baseWidth / 2;
+    float radiusY = 5.0; // Ellipse radius for the base
+    glBegin(GL_TRIANGLE_FAN);
+    for (int i = 0; i <= numSegments; ++i)
+    {
+        float angle = 2.0f * 3.1415926f * i / numSegments;
+        float x = radiusX * cos(angle);
+        float y = radiusY * sin(angle);
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    // Draw the recycle symbol (arrows and circle)
+    glColor3f(0.0, 1.0, 0.0); // Green color for recycle symbol
+
+    // Draw the top arrow
+    glBegin(GL_TRIANGLES);
+    glVertex2f(-6.0, height + lipHeight - 4.0);
+    glVertex2f(6.0, height + lipHeight - 4.0);
+    glVertex2f(0.0, height + lipHeight + 6.0);
+    glEnd();
+
+    // Draw the bottom arrow
+    glBegin(GL_TRIANGLES);
+    glVertex2f(-6.0, height + lipHeight - 14.0);
+    glVertex2f(6.0, height + lipHeight - 14.0);
+    glVertex2f(0.0, height + lipHeight - 24.0);
+    glEnd();
+
+    // Draw the circle in the center of the symbol
+    float circleRadius = 3.0;
+    glBegin(GL_TRIANGLE_FAN);
+    for (int i = 0; i <= numSegments; ++i)
+    {
+        float angle = 2.0f * 3.1415926f * i / numSegments;
+        float x = 0.0 + (circleRadius * cos(angle));
+        float y = height + lipHeight + (circleRadius * sin(angle));
+        glVertex2f(x, y);
+    }
+    glEnd();
+}
 
 
 void display()
@@ -459,18 +535,45 @@ void display()
 
     drawDesktop();
     drawWindows98Logo();
-    drawFolderIcon();
+   
     drawCircle(200.0, 200.0, 40.0, 100); // Centered at (200, 200) with radius 50
     drawText(190.0, 200.0, "MSn"); // Adjusted position to fit within the circle
+    glPushMatrix();
+    glTranslatef(40.0, 100.0, 0.0); // Position the recycle bin
+    drawRecycleBinIcon();
+ 
+    glPopMatrix();
+
+    glTranslatef(30.0, 200, 0.0); // Position the recycle bin
    
+    drawFolderIcon();
+    glPopMatrix();
+
     glFlush();
+}
+
+bool depthEnabled = false; 
+
+void enableDepthTest()
+{
+    glEnable(GL_DEPTH_TEST);
+    depthEnabled = true;
 }
 
 void mouse(int button, int state, int x, int y)
 {
     if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN)
     {
-        c_display();
+        // Change display function to c_display
+        glutDisplayFunc(c_display);
+
+        // Enable depth test (only if not already enabled)
+        if (!depthEnabled)
+            enableDepthTest();
+
+        // Request redisplay to show updated scene with c_display
+        glutPostRedisplay();
+        cout << "click" << endl;
     }
 }
 
@@ -481,10 +584,12 @@ int main(int argc, char** argv)
     glutInitWindowPosition(10, 10);
     glutCreateWindow("Windows 98 Simulation");
     myinit();
+
+    // Initially set the display function to the default display
     glutDisplayFunc(display);
-  /*  glutSpecialFunc(specialKeys);
-    glEnable(GL_DEPTH_TEST);*/
+    glutSpecialFunc(specialKeys);
     glutMouseFunc(mouse);
+
     glutMainLoop();
     return 0;
 }
