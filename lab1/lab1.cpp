@@ -45,17 +45,7 @@ void drawDesktop()
     glVertex2i(400, 350);
     glEnd();
 
-    glColor3f(0.8, 0.8, 0.8); // Light gray for icons
-    for (int i = 0; i < 5; ++i)
-    {
-        glBegin(GL_POLYGON);
-        glVertex2i(50 + i * 100, 50);
-        glVertex2i(90 + i * 100, 50);
-        glVertex2i(90 + i * 100, 90);
-        glVertex2i(50 + i * 100, 90);
-        glEnd();
-    }
-
+    
     glColor3f(0.2, 0.2, 0.2); // Dark gray for taskbar
     glBegin(GL_POLYGON);
     glVertex2i(0, 0);
@@ -485,9 +475,9 @@ void drawRecycleBinIcon()
 
     // Draw the base of the glass tumbler (ellipse)
     glColor3f(0.5, 0.5, 0.5); // Gray color for base
-    int numSegments = 50;
+    int numSegments = 2;
     float radiusX = baseWidth / 2;
-    float radiusY = 5.0; // Ellipse radius for the base
+    float radiusY = 8; // Ellipse radius for the base
     glBegin(GL_TRIANGLE_FAN);
     for (int i = 0; i <= numSegments; ++i)
     {
@@ -501,12 +491,7 @@ void drawRecycleBinIcon()
     // Draw the recycle symbol (arrows and circle)
     glColor3f(0.0, 1.0, 0.0); // Green color for recycle symbol
 
-    // Draw the top arrow
-    glBegin(GL_TRIANGLES);
-    glVertex2f(-6.0, height + lipHeight - 4.0);
-    glVertex2f(6.0, height + lipHeight - 4.0);
-    glVertex2f(0.0, height + lipHeight + 6.0);
-    glEnd();
+  
 
     // Draw the bottom arrow
     glBegin(GL_TRIANGLES);
@@ -514,6 +499,21 @@ void drawRecycleBinIcon()
     glVertex2f(6.0, height + lipHeight - 14.0);
     glVertex2f(0.0, height + lipHeight - 24.0);
     glEnd();
+
+    glColor3f(0.0, 0.0, 0.0); // Black
+    glRasterPos2f(0.1, 1);
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'R');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'c');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'y');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'c');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'l');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'b');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'i');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'n');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
 
     // Draw the circle in the center of the symbol
     float circleRadius = 3.0;
