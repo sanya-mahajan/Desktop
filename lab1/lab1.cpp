@@ -91,6 +91,69 @@ void drawDesktop()
     glVertex2i(630, 5);
     glEnd();
 }
+
+
+void drawPCircle(float cx, float cy, float radius)
+{
+    glBegin(GL_TRIANGLE_FAN);
+    for (int i = 0; i < 360; i += 10) {
+        float angle = i * 3.14159 / 180.0;
+        float x = cx + radius * cos(angle);
+        float y = cy + radius * sin(angle);
+        glVertex2f(x, y);
+    }
+    glEnd();
+}
+
+
+void paintWindow()
+{
+    // Draw window frame
+    glColor3f(0.7, 0.7, 0.7); // Light gray for window frame
+    glBegin(GL_LINE_LOOP);
+    glVertex2i(500, 350); // Shifted x-coordinate by 60 units
+    glVertex2i(600, 350); // Shifted x-coordinate by 60 units
+    glVertex2i(600, 450);
+    glVertex2i(500, 450);
+    glEnd();
+
+    // Draw window content (white rectangle)
+    glColor3f(2, 1.0, 2); // White for window content
+    glBegin(GL_POLYGON);
+    glVertex2i(500, 355); // Shifted x-coordinate by 60 units
+    glVertex2i(600, 355); // Shifted x-coordinate by 60 units
+    glVertex2i(600, 445);
+    glVertex2i(500, 445);
+    glEnd();
+
+    glColor3f(0.3, 0.5, 0.8); // Blue circle color
+    drawPCircle(550, 400, 15); // Circle centered at (460, 350) with radius 15
+
+
+   
+
+    // Draw minimize button (cross) at top right corner
+    glColor3f(0.7, 0.7, 0.7); // Light gray for button
+    glBegin(GL_POLYGON);
+    glVertex2i(590, 445); // Shifted x-coordinate by 45 units
+    glVertex2i(600, 445); // Shifted x-coordinate by 45 units
+    glVertex2i(600, 435);
+    glVertex2i(590, 435);
+    glEnd();
+
+    glColor3f(0.3, 0.3, 0.3); // Dark gray for cross lines
+    glLineWidth(2.0);
+    glBegin(GL_LINES);
+    glVertex2i(592, 443); // Shifted x-coordinate by 45 units
+    glVertex2i(598, 437); // Shifted x-coordinate by 45 units
+    glVertex2i(598, 443); // Shifted x-coordinate by 45 units
+    glVertex2i(592, 437); // Shifted x-coordinate by 45 units
+    glEnd();
+
+    
+}
+
+
 void drawSearchIcon()
 {
     // Draw globe (circle)
@@ -639,7 +702,37 @@ void drawCurrentTime()
     for (char c : timeStr) {
         glutBitmapCharacter(GLUT_BITMAP_9_BY_15, c); // Draw each character using GLUT's bitmap font
     }
-}void display()
+
+
+
+}
+
+int mouseX = 0; // Variable to store the x-coordinate of the mouse
+int mouseY = 0; // Variable to store the y-coordinate of the mouse
+
+// Function to draw a cursor at the specified position
+void drawCursor(int x, int y)
+{
+    // Set the cursor color (red)
+    glColor3f(1.0, 0.0, 0.0);
+
+    // Draw a cursor shape (triangle) at the specified position
+    glBegin(GL_TRIANGLES);
+    glVertex2i(x, y);         // Top vertex
+    glVertex2i(x - 10, y - 10); // Bottom-left vertex
+    glVertex2i(x + 10, y - 10); // Bottom-right vertex
+    glEnd();
+}
+
+// Function to handle mouse movement
+void onMouseMove(int x, int y)
+{
+    mouseX = x; // Update mouseX with the current x-coordinate of the mouse
+    mouseY = 480 - y; // Invert mouseY (OpenGL's coordinate system has origin at bottom-left)
+    glutPostRedisplay(); // Request a redraw of the display
+}
+
+void display()
 {
     // Update the current time
     lastUpdateTime = time(nullptr);
@@ -682,6 +775,14 @@ void drawCurrentTime()
 
     drawCurrentTime();
 
+    glPushMatrix();
+    glTranslatef(20,-1 , 0.0); 
+
+    paintWindow();
+
+    drawText(500, 400, "Paint"); 
+    glPopMatrix();
+    drawCursor(mouseX, mouseY);
     glFlush();
     // Request a redraw
     glutSwapBuffers();
@@ -738,7 +839,7 @@ int main(int argc, char** argv)
     glutDisplayFunc(display);
     glutSpecialFunc(specialKeys);
     glutMouseFunc(mouse);
-
+    glutPassiveMotionFunc(onMouseMove);
     glutMainLoop();
     return 0;
 }
