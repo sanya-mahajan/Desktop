@@ -1,6 +1,8 @@
 #include <GL/glut.h>
 #include <iostream>
 #include <cstdlib> // For rand()
+#include <ctime>   // For getting current time
+#include <iomanip> // For formatting time
 using namespace std;
 
 int xCenter = 320, yCenter = 240; // Center of the screen
@@ -30,21 +32,7 @@ void drawDesktop()
     glVertex2i(0, 480);
     glEnd();
 
-    glColor3f(0.1, 0.1, 0.1); // Dark gray for window outlines
-    glBegin(GL_LINE_LOOP);
-    glVertex2i(100, 100);
-    glVertex2i(300, 100);
-    glVertex2i(300, 300);
-    glVertex2i(100, 300);
-    glEnd();
-
-    glBegin(GL_LINE_LOOP);
-    glVertex2i(400, 150);
-    glVertex2i(600, 150);
-    glVertex2i(600, 350);
-    glVertex2i(400, 350);
-    glEnd();
-
+   
     
     glColor3f(0.2, 0.2, 0.2); // Dark gray for taskbar
     glBegin(GL_POLYGON);
@@ -52,6 +40,32 @@ void drawDesktop()
     glVertex2i(640, 0);
     glVertex2i(640, 30);
     glVertex2i(0, 30);
+    glEnd();
+    // Icon 1 (rectangle)
+    glColor3f(0.8, 0.3, 0.3); // Red color for icon 1
+    glBegin(GL_POLYGON);
+    glVertex2i(40, 5);
+    glVertex2i(80, 5);
+    glVertex2i(80, 25);
+    glVertex2i(40, 25);
+    glEnd();
+
+    // Icon 2 (rectangle)
+    glColor3f(0.3, 0.8, 0.3); // Green color for icon 2
+    glBegin(GL_POLYGON);
+    glVertex2i(120, 5);
+    glVertex2i(160, 5);
+    glVertex2i(160, 25);
+    glVertex2i(120, 25);
+    glEnd();
+
+    // Icon 3 (rectangle)
+    glColor3f(0.3, 0.3, 0.8); // Blue color for icon 3
+    glBegin(GL_POLYGON);
+    glVertex2i(200, 5);
+    glVertex2i(240, 5);
+    glVertex2i(240, 25);
+    glVertex2i(200, 25);
     glEnd();
 
     glColor3f(0.5, 0.5, 0.5); // Light gray for Start button
@@ -76,6 +90,52 @@ void drawDesktop()
     glVertex2i(630, 25);
     glVertex2i(630, 5);
     glEnd();
+}
+void drawSearchIcon()
+{
+    // Draw globe (circle)
+    glColor3f(0.2, 0.7, 0.3); // Green color for globe
+    glBegin(GL_TRIANGLE_FAN);
+    glVertex2i(0, 0); // Center of the globe
+    int numSegments = 50;
+    for (int i = 0; i <= numSegments; ++i) {
+        float angle = i * (2.0f * 3.14159f / numSegments);
+        float x = 15 * cos(angle); // Radius of the globe
+        float y = 15 * sin(angle);
+        glVertex2f(x, y);
+    }
+    glEnd();
+
+    // Draw magnifying glass (handle)
+    glColor3f(0.8, 0.8, 0.8); // Light gray for handle
+    glBegin(GL_POLYGON);
+    glVertex2i(-5, -20);
+    glVertex2i(-5, 0);
+    glVertex2i(5, 0);
+    glVertex2i(5, -20);
+    glEnd();
+
+    // Draw magnifying glass (lens)
+    glColor3f(0.8, 0.8, 0.8); // Light gray for lens
+    glBegin(GL_LINE_LOOP);
+    glVertex2i(-15, -5);
+    glVertex2i(-5, -15);
+    glVertex2i(5, -15);
+    glVertex2i(15, -5);
+    glVertex2i(15, 5);
+    glVertex2i(5, 15);
+    glVertex2i(-5, 15);
+    glVertex2i(-15, 5);
+    glEnd();
+
+    // Draw text "Internet"
+    glColor3f(1.0, 1.0, 1.0); // White color for text
+    glRasterPos2i(-20, -30); // Position for text
+    const char* text = "Internet";
+    while (*text) {
+        glutBitmapCharacter(GLUT_BITMAP_9_BY_15, *text);
+        ++text;
+    }
 }
 
 void drawWindows98Logo()
@@ -311,39 +371,36 @@ void drawText(float x, float y, const char* text) {
         ++text;
     }
 }
-void drawFolderIcon(float x, float y)
-{
-    // Adjust the dimensions of the folder
-    float folderWidth = 20.0;   // Width of the folder
-    float folderHeight = 30.0;  // Height of the folder
-
+void drawFolderIcon() {
     // Draw the folder body (rectangle)
-    glColor3f(1.0, 1.0, 0.0); // Yellow
+    glColor3f(1.0, 1.0, 0.0); // yellow
     glBegin(GL_POLYGON);
-    glVertex2f(x, y);
-    glVertex2f(x + folderWidth, y);
-    glVertex2f(x + folderWidth, y + folderHeight);
-    glVertex2f(x, y + folderHeight);
+    glVertex2f(0.0, 0.0);
+    glVertex2f(105.0, 0.0);
+    glVertex2f(105.0, 80.0);
+    /*    */glVertex2f(20.0, 80.0);
+    glVertex2f(0.0, 80.0);
     glEnd();
+
 
     // Draw the folder tab (smaller rectangle on top)
     glColor3f(1.0, 1.0, 0.5); // Light yellow
     glBegin(GL_POLYGON);
-    glVertex2f(x, y + folderHeight);
-    glVertex2f(x + folderWidth * 0.3, y + folderHeight);
-    glVertex2f(x + folderWidth * 0.4, y + folderHeight + folderWidth * 0.2);
-    glVertex2f(x, y + folderHeight + folderWidth * 0.2);
+    glVertex2f(0.0, 70.0);
+    glVertex2f(15.0, 90.0);
+    glVertex2f(50.0, 90.0);
+    glVertex2f(60.0, 80.0);
     glEnd();
 
     // Draw the folder label (optional)
     glColor3f(0.0, 0.0, 0.0); // Black
-    glRasterPos2f(x + 4.0, y + 12.0); // Adjust position for text
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'F');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'o');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'l');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'd');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'e');
-    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10, 'r');
+    glRasterPos2f(10.0, 40.0); // Adjust position as needed
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'F');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'o');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'l');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'd');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'r');
 }
 
 
@@ -503,7 +560,11 @@ void drawRecycleBinIcon()
     glEnd();
 
     glColor3f(0.0, 0.0, 0.0); // Black
-    glRasterPos2f(0.1, 1);
+    glRasterPos2f(2, 0.5);
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
+    glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ' ');
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'R');
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'e');
     glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, 'c');
@@ -531,35 +592,103 @@ void drawRecycleBinIcon()
 }
 
 
-void display()
+// Global variables
+int windowWidth = 640;
+int windowHeight = 480;
+time_t lastUpdateTime = time(nullptr); // Variable to store the last update time
+extern int windowWidth;
+
+void drawCurrentTime()
 {
+    // Get current time
+    time_t currentTime = time(nullptr);
+    tm localTime;
+
+    // Call localtime_s to convert current time to local time
+    if (localtime_s(&localTime, &currentTime) == 0) {
+        // Successfully obtained local time
+        std::cout << "Current local time: "
+            << localTime.tm_hour << ":" << localTime.tm_min << ":" << localTime.tm_sec
+            << std::endl;
+    }
+    else {
+        // Error handling if localtime_s fails
+        std::cerr << "Failed to get local time!" << std::endl;
+        return; // Return early if localtime_s fails
+    }
+
+    // Format current time
+    char buffer[80];
+    if (strftime(buffer, sizeof(buffer), "%H:%M:%S", &localTime) == 0) {
+        // Error handling if strftime fails
+        std::cerr << "Error formatting time!" << std::endl;
+        return; // Return early if strftime fails
+    }
+    std::string timeStr = buffer;
+
+    // Calculate the position for the text
+    int textWidth = 9 * timeStr.length(); // Width of text in pixels
+    int textHeight = 15; // Height of text in pixels
+    int margin = 50; // Margin from window edge
+    int textPosX = windowWidth - textWidth - margin; // X coordinate for bottom-right corner
+    int textPosY = 10; // Y coordinate for bottom-right corner
+
+    // Draw current time at the bottom of the window
+    glColor3f(1.0, 1.0, 1.0); // White color for text
+    glRasterPos2i(textPosX, textPosY); // Set the raster position for drawing
+    for (char c : timeStr) {
+        glutBitmapCharacter(GLUT_BITMAP_9_BY_15, c); // Draw each character using GLUT's bitmap font
+    }
+}void display()
+{
+    // Update the current time
+    lastUpdateTime = time(nullptr);
+
     glClear(GL_COLOR_BUFFER_BIT);
 
     drawDesktop();
     drawWindows98Logo();
-   
-    drawCircle(200.0, 200.0, 40.0, 100); // Centered at (200, 200) with radius 50
-    drawText(190.0, 200.0, "MSn"); // Adjusted position to fit within the circle
+
+    // Draw recycle bin icon
     glPushMatrix();
-    glTranslatef(40.0, 100.0, 0.0); // Position the recycle bin
+    glTranslatef(50.0, 100.0, 0.0); // Position the recycle bin
     drawRecycleBinIcon();
- 
     glPopMatrix();
 
-    glTranslatef(30.0, 200, 0.0); 
+
+    glPushMatrix();
+    glTranslatef(430, 130, 0); // Position of the search icon
+    drawSearchIcon();
+    glPopMatrix();
+
+    // Draw folder icon
+    glPushMatrix();
+    glTranslatef(30.0, 190.0, 0.0); // Position the folder icon
+    drawFolderIcon();
    
-    drawFolderIcon();
     glPopMatrix();
+    glPushMatrix();
+    glTranslatef(150, 90, 0.0); // Position the folder icon
+    drawFolderIcon();
+
     glPopMatrix();
 
-    glTranslatef(40, 200, 0.0); // Position the recycle bin
-
-    drawFolderIcon();
+    // Draw circle icon
+    glPushMatrix();
+    glTranslatef(30.0, 300.0, 0.0); // Position the circle icon
+    drawCircle(40.0, 40.0, 40.0, 100); // Centered at (200, 200) with radius 40
+    drawText(29.0, 40.0, "MSn"); // Adjusted position to fit within the circle
     glPopMatrix();
+
+    drawCurrentTime();
 
     glFlush();
-}
+    // Request a redraw
+    glutSwapBuffers();
 
+    // Schedule the next display() call
+    glutPostRedisplay();
+}
 bool depthEnabled = false; 
 
 void enableDepthTest()
